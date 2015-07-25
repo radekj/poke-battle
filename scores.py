@@ -1,5 +1,5 @@
 from nameko.rpc import rpc, RpcProxy
-
+from nameko.events import event_handler
 
 class ScoreService(object):
     name = 'score_service'
