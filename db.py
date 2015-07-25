@@ -10,5 +10,3 @@ class Pokemon(Base):
     id = sa.Column(sa.Integer, primary_key=True)
     pokemon_name = sa.Column(sa.String)
     user_id = sa.Column(sa.Integer)
-
-Base.metadata.create_all(engine)
