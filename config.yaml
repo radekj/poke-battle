@@ -1,0 +1,4 @@
+DB_URIS:
+    pokemon_service:Base: sqlite:////tmp/pokemons.db
+
+AMQP_URI: amqp://localhost
