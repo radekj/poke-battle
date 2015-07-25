@@ -1,6 +1,7 @@
 from nameko.rpc import rpc, RpcProxy
 
-class ScoreService:
+
+class ScoreService(object):
     name = 'score_service'
 
     player_service = RpcProxy('players_service')
