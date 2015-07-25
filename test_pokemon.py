@@ -1,11 +1,10 @@
 import pytest
-
-from pokemon import PokemonService
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from nameko.testing.services import worker_factory
 
 from db import Base
+from pokemon import PokemonService
 
 
 @pytest.fixture

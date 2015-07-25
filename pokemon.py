@@ -1,9 +1,9 @@
 from nameko.rpc import rpc, RpcProxy
 from nameko_sqlalchemy import Session
-
 from sqlalchemy.ext.declarative import declarative_base
 
 from db import Pokemon
+
 
 Base = declarative_base()
 
