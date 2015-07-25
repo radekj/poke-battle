@@ -13,7 +13,7 @@ class ScoreService(object):
         return [(p.name, p.score) for p in players]
 
     @event_handler('battle_service', 'battle_finished')
-    def update_players_score_after_battle(self, data):
+    def update_players_score(self, data):
         # NOTE: for now the winner gets 2 points and the loser 1
         _, winner, loser = data
         self.player_rpc.get_player(winner).add_score(2)
