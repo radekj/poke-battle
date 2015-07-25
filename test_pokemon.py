@@ -2,17 +2,21 @@ import unittest
 
 from pokemon import PokemonService
 from nameko.testing.services import worker_factory
-from nameko_sqlalchemy import Session
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
 
 
 class TestPokemon(unittest.TestCase):
 
     def setUp(self):
-        self.session = Session(Base)
+        self.service = worker_factory(PokemonService)
 
     def test_create_pokemon(self):
-        service = worker_factory(PokemonService)
-        service.create_pokemon(1, 'Bulbasaur')
+        self.service.create_pokemon(1, 'Bulbasaur')
+
+        self.assertEqual(self.service.session.add.call_count, 1)
+
+        created_pokemon = self.service.session.add.call_args[0][0]
+        self.assertEqual(created_pokemon.user_id, 1)
+        self.assertEqual(created_pokemon.pokemon_name, 'Bulbasaur')
+
+    def get_pokemon_by_id():
+        pass

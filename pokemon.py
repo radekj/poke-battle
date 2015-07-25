@@ -23,18 +23,20 @@ class PokemonService(object):
 
     @rpc
     def get_pokemon_by_id(self, pokemon_id):
-        pokemon = self.session.query(Pokemon).filter(
+        return self.session.query(
+            Pokemon.id,
+            Pokemon.user_id,
+            Pokemon.pokemon_name,
+        ).filter(
             Pokemon.id == pokemon_id
         ).first()
-        if pokemon is None:
-            return "Pokemon with id: {} doesn't exists".format(pokemon_id)
-        return pokemon
 
     @rpc
     def get_pokemons_for_user(self, user_id):
-        pokemon = self.session.query(Pokemon).filter(
+        return self.session.query(
+            Pokemon.id,
+            Pokemon.user_id,
+            Pokemon.pokemon_name,
+        ).filter(
             Pokemon.user_id == user_id
         ).first()
-        if pokemon is None:
-            return "User: {} doesn't have any pokemons assigned".format(user_id)
-        return pokemon
