@@ -6,7 +6,7 @@ from nameko.testing.services import entrypoint_waiter
 from scores import ScoreService
 
 
-def scores_service_with_players()
+def scores_service_with_players():
     service = worker_factory(ScoreService)
     service.player_rpc.new_player('player1')
     service.player_rpc.new_player('player2')
