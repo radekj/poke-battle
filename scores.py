@@ -8,6 +8,5 @@ class ScoreService(object):
 
     @rpc
     def leaderboard(self):
-        players = self.player_service.players()
-        player_scores = [(player.name, player.score) for player in players]
-        return sorted(player_scores, key=lambda player: player[1], reverse=True)
+        players = self.player_service.get_players()
+        return sorted(players, key=lambda player: player.score, reverse=True)
