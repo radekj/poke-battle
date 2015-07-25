@@ -3,8 +3,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from nameko.testing.services import worker_factory
 
-from db import Base
-from pokemon import PokemonService
+from pokebattle.db import Base
+from pokebattle.pokemon import PokemonService
 
 
 @pytest.fixture
