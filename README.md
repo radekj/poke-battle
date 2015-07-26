@@ -29,3 +29,10 @@ Temporary installation note
  $ nameko run pokebattle.players --config=config.yaml
  $ nameko run pokebattle.scores --config=config.yaml
  ```
+
+ Testing
+ =======
+
+ ```
+$ py.test --cov pokebattle tests/
+ ```
