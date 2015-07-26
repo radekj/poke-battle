@@ -1,5 +1,6 @@
 from nameko.rpc import rpc
 
+
 class PlayersService(object):
     name = "players_service"
 

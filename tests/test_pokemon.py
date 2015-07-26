@@ -35,7 +35,7 @@ def test_create_pokemon():
 def test_get_pokemon_by_id(service):
     service.create_pokemon(1, 'Bulbasaur')
     pokemon = service.get_pokemon_by_id(1)
-    assert pokemon, (pokemon.id, 1, u'Bulbasaur')
+    assert pokemon == (pokemon.id, 1, u'Bulbasaur')
 
 
 def test_get_pokemon_by_id_none_found(service):
@@ -46,7 +46,7 @@ def test_get_pokemon_by_id_none_found(service):
 def test_get_pokemons_for_user(service):
     service.create_pokemon(1, 'Bulbasaur')
     pokemon = service.get_pokemons_for_user(1)
-    assert pokemon, (pokemon.id, 1, u'Bulbasaur')
+    assert pokemon == (pokemon.id, 1, u'Bulbasaur')
 
 
 def test_get_pokemons_for_user_none_found(service):
