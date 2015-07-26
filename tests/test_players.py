@@ -20,14 +20,14 @@ def session():
 def service(session):
     return worker_factory(PlayersService, session=session)
 
-def test_players(service):
 
+def test_players(service):
     first_name = 'Paul'
     first_player = service.new_player(first_name)
     service.new_player('Mike')
 
     assert first_player.name == first_name
-    assert service.get_player(first_player.id).name == \
+    assert service.get_player(first_player.id)['name'] == \
         first_player.name
     assert len(service.get_players()) == 2
 
