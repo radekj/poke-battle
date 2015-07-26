@@ -1,6 +1,7 @@
 from nameko.rpc import rpc, RpcProxy
 from nameko.events import event_handler
 
+
 class ScoreService(object):
     name = 'score_service'
 
@@ -9,7 +10,8 @@ class ScoreService(object):
     @rpc
     def leaderboard(self):
         players = self.player_rpc.get_players()
-        sorted_players = sorted(players, key=lambda player: player.score, reverse=True)
+        sorted_players = sorted(
+            players, key=lambda player: player.score, reverse=True)
         return [(p.name, p.score) for p in sorted_players]
 
     @event_handler('battle_service', 'battle_finished')

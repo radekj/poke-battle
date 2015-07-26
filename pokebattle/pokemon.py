@@ -5,6 +5,7 @@ from nameko_sqlalchemy import Session
 from sqlalchemy.ext.declarative import declarative_base
 
 from pokebattle.db import Pokemon
+from pokebattle.utils import dictify
 
 
 Base = declarative_base()
@@ -27,6 +28,7 @@ class PokemonService(object):
         self.session.commit()
 
     @rpc
+    @dictify
     def get_pokemon_by_id(self, pokemon_id):
         return self.session.query(
             Pokemon.id,
@@ -37,6 +39,7 @@ class PokemonService(object):
         ).first()
 
     @rpc
+    @dictify
     def get_pokemons_for_user(self, user_id):
         return self.session.query(
             Pokemon.id,
@@ -44,4 +47,6 @@ class PokemonService(object):
             Pokemon.pokemon_name,
         ).filter(
             Pokemon.user_id == user_id
+        ).order_by(
+            Pokemon.id
         ).all()
