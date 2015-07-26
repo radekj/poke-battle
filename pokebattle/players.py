@@ -1,6 +1,6 @@
-from nameko.rpc import rpc
+from nameko.rpc import rpc, RpcProxy
 from nameko_sqlalchemy import Session
-from sqlalchemy.ext.declarative import declarative_base 
+from sqlalchemy.ext.declarative import declarative_base
 
 from pokebattle.db import Player
 
@@ -8,10 +8,11 @@ from pokebattle.db import Player
 Base = declarative_base()
 
 
-
 class PlayersService(object):
     name = "players_service"
     session = Session(Base)
+
+    pokemon_service = RpcProxy('pokemon_service')
 
     @rpc
     def new_player(self, name):
@@ -37,3 +38,11 @@ class PlayersService(object):
             Player).filter(Player.name == check_name).first()
         if player:
             raise RuntimeError('The name of player already exists.')
+
+    @rpc
+    def create_pokemon_for_player(self, uuid):
+        self.pokemon_service.create_pokemon(uuid)
+
+    @rpc
+    def get_pokemons_for_player(self, uuid):
+        return self.pokemon_service.get_pokemons_for_user(uuid)
