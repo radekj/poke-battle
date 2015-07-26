@@ -28,7 +28,8 @@ Temporary installation note
  $ nameko run pokebattle.pokemon --config=config.yaml
  $ nameko run pokebattle.players --config=config.yaml
  $ nameko run pokebattle.scores --config=config.yaml
- ```
+ $ nameko run pokebattle.game_entrypoint --config=config.yaml
+```
 
  Testing
  =======
