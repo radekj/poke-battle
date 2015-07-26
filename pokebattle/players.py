@@ -1,10 +1,17 @@
 from nameko.rpc import rpc
+from nameko_sqlalchemy import Session
+from sqlalchemy.ext.declarative import declarative_base 
+
+from pokebattle.db import Player
+
+
+Base = declarative_base()
+
 
 
 class PlayersService(object):
     name = "players_service"
-
-    _players = {}
+    session = Session(Base)
 
     @rpc
     def new_player(self, name):
@@ -12,36 +19,21 @@ class PlayersService(object):
         :param name: str Name of player
         """
         self._check_name_duplicity(name)
-        new_player = Player(name)
-        self._players[new_player.uuid] = new_player
-        return new_player
+        player = Player(name=name)
+        self.session.add(player)
+        self.session.commit()
+        return player
 
     @rpc
     def get_players(self):
-        return [player for player in self._players]
+        return self.session.query(Player).all()
 
     @rpc
     def get_player(self, uuid):
-        return self._players[uuid]
+        return self.session.query(Player).filter(Player.id == uuid).first()
 
     def _check_name_duplicity(self, check_name):
-        for player in self._players.values():
-            if check_name == player.name:
-                raise RuntimeError('The name of player already exists.')
-
-
-class Player(object):
-    # counter for autoincrement
-    counter = 0
-
-    def __init__(self, name):
-        """
-        :param name: str
-        """
-        self.name = name
-        self.score = 0
-        Player.counter += 1
-        self.uuid = Player.counter
-
-    def add_score(self, points_from_battle):
-        self.score += points_from_battle
+        player = self.session.query(
+            Player).filter(Player.name == check_name).first()
+        if player:
+            raise RuntimeError('The name of player already exists.')
